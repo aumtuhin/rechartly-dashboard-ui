@@ -9,15 +9,15 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-
+import { Link } from "react-router-dom";
 import { ChartBar, Home, Settings, ChartPie, ChartLine } from "lucide-react";
 
 const items = [
   { title: "Overview", icon: Home, url: "/" },
-  { title: "Analytics", icon: ChartBar, url: "#" },
-  { title: "Statistics", icon: ChartLine, url: "#" },
-  { title: "Reports", icon: ChartPie, url: "#" },
-  { title: "Settings", icon: Settings, url: "#" },
+  { title: "Analytics", icon: ChartBar, url: "/analytics" },
+  { title: "Statistics", icon: ChartLine, url: "/statistics" },
+  { title: "Reports", icon: ChartPie, url: "/reports" },
+  { title: "Settings", icon: Settings, url: "/settings" },
 ];
 
 export function DashboardSidebar() {
@@ -31,10 +31,10 @@ export function DashboardSidebar() {
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <a href={item.url} className="flex items-center gap-2">
+                    <Link to={item.url} className="flex items-center gap-2">
                       <item.icon className="h-4 w-4" />
                       <span>{item.title}</span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
