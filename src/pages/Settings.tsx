@@ -12,9 +12,16 @@ const Settings = () => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
+  // Only render the switch when the component has mounted to avoid hydration mismatch
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const handleThemeChange = (checked: boolean) => {
+    const newTheme = checked ? 'dark' : 'light';
+    setTheme(newTheme);
+    toast(`${newTheme.charAt(0).toUpperCase() + newTheme.slice(1)} mode activated`);
+  };
 
   if (!mounted) {
     return null;
@@ -42,10 +49,7 @@ const Settings = () => {
                 <Switch 
                   id="darkMode" 
                   checked={theme === 'dark'}
-                  onCheckedChange={(checked) => {
-                    setTheme(checked ? 'dark' : 'light');
-                    toast(`${checked ? 'Dark' : 'Light'} mode activated`);
-                  }}
+                  onCheckedChange={handleThemeChange}
                 />
                 <Label htmlFor="darkMode">Dark mode</Label>
               </div>
