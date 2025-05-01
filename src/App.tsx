@@ -11,7 +11,7 @@ import Analytics from "./pages/Analytics";
 import Statistics from "./pages/Statistics";
 import Reports from "./pages/Reports";
 import Settings from "./pages/Settings";
-import InputsDemo from "./pages/InputsDemo";
+import Inputs from "./pages/Inputs";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,7 +30,7 @@ const App = () => (
             <Route path="/statistics" element={<Statistics />} />
             <Route path="/reports" element={<Reports />} />
             <Route path="/settings" element={<Settings />} />
-            <Route path="/inputs" element={<InputsDemo />} />
+            <Route path="/inputs" element={<Inputs />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
