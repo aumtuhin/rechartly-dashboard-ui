@@ -78,7 +78,7 @@ const Settings = () => {
                 variant="destructive"
                 onClick={handleLogout}
               >
-                <LogOut className="h-4 w-4 mr-2" />
+                <LogOut className="h-4 w-4" />
                 Logout
               </Button>
             </CardContent>
