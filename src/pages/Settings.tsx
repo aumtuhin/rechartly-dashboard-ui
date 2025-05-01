@@ -1,88 +1,39 @@
 
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { DashboardSidebar } from "@/components/DashboardSidebar";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Switch } from "@/components/ui/switch";
-import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
-import { toast } from "sonner";
 import { LogOut } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Settings = () => {
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-  const navigate = useNavigate();
-
-  // Only render the switch when the component has mounted to avoid hydration mismatch
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const handleThemeChange = (checked: boolean) => {
-    const newTheme = checked ? 'dark' : 'light';
-    setTheme(newTheme);
-    toast(`${newTheme.charAt(0).toUpperCase() + newTheme.slice(1)} mode activated`);
-  };
+  const { logout } = useAuth();
 
   const handleLogout = () => {
-    toast.success("Logged out successfully");
-    navigate("/");
+    logout();
+    toast.success("Successfully logged out");
   };
 
-  if (!mounted) {
-    return null;
-  }
-
   return (
-    <SidebarProvider>
-      <div className="min-h-screen flex w-full">
-        <DashboardSidebar />
-        <main className="flex-1 p-8">
-          <div className="flex items-center justify-between mb-8">
-            <h1 className="text-3xl font-bold">Settings</h1>
-            <SidebarTrigger />
+    <div className="container mx-auto p-4 max-w-4xl">
+      <h1 className="text-2xl font-bold mb-6">Settings</h1>
+      
+      <div className="space-y-6">
+        <div className="p-6 bg-card rounded-lg border shadow-sm">
+          <h2 className="text-xl font-semibold mb-4">Account Settings</h2>
+          <div className="space-y-4">
+            {/* Settings content would go here */}
+            <p className="text-muted-foreground">Configure your account settings and preferences</p>
+            <Button 
+              variant="destructive" 
+              className="mt-4"
+              onClick={handleLogout}
+            >
+              <LogOut className="h-4 w-4 mr-2" />
+              Logout
+            </Button>
           </div>
-          <Card>
-            <CardHeader>
-              <CardTitle>Preferences</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex items-center space-x-2">
-                <Switch id="notifications" />
-                <Label htmlFor="notifications">Enable notifications</Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Switch 
-                  id="darkMode" 
-                  checked={theme === 'dark'}
-                  onCheckedChange={handleThemeChange}
-                />
-                <Label htmlFor="darkMode">Dark mode</Label>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="mt-6">
-            <CardHeader>
-              <CardTitle>Account</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <Button 
-                variant="destructive" 
-                onClick={handleLogout}
-                className="flex items-center gap-2"
-              >
-                <LogOut size={18} />
-                Logout
-              </Button>
-            </CardContent>
-          </Card>
-        </main>
+        </div>
       </div>
-    </SidebarProvider>
+    </div>
   );
 };
 

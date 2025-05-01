@@ -8,6 +8,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Eye, EyeOff, Lock, User } from "lucide-react";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -19,8 +20,9 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   
   const navigate = useNavigate();
+  const { login } = useAuth();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!formData.email || !formData.password) {
@@ -30,12 +32,15 @@ const Login = () => {
     
     setIsLoading(true);
     
-    // Simulate API call
-    setTimeout(() => {
-      setIsLoading(false);
+    try {
+      await login(formData.email, formData.password);
       toast.success("Login successful!");
       navigate("/dashboard");
-    }, 1500);
+    } catch (error) {
+      toast.error("Login failed. Please check your credentials.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const togglePasswordVisibility = () => {

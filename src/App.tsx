@@ -3,7 +3,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
 import Login from "./pages/Login";
 import Index from "./pages/Index";
@@ -13,8 +13,46 @@ import Reports from "./pages/Reports";
 import Settings from "./pages/Settings";
 import Inputs from "./pages/Inputs";
 import NotFound from "./pages/NotFound";
+import { AuthProvider, useAuth } from "./contexts/AuthContext";
 
 const queryClient = new QueryClient();
+
+// Protected route component
+const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+  const { isAuthenticated } = useAuth();
+  const location = useLocation();
+  
+  if (!isAuthenticated) {
+    // Redirect to login page if not authenticated
+    return <Navigate to="/" replace state={{ from: location }} />;
+  }
+  
+  return <>{children}</>;
+};
+
+// Check if user is already logged in - redirect from login page
+const LoginRoute = () => {
+  const { isAuthenticated } = useAuth();
+  
+  if (isAuthenticated) {
+    return <Navigate to="/dashboard" replace />;
+  }
+  
+  return <Login />;
+};
+
+const AppRoutes = () => (
+  <Routes>
+    <Route path="/" element={<LoginRoute />} />
+    <Route path="/dashboard" element={<ProtectedRoute><Index /></ProtectedRoute>} />
+    <Route path="/analytics" element={<ProtectedRoute><Analytics /></ProtectedRoute>} />
+    <Route path="/statistics" element={<ProtectedRoute><Statistics /></ProtectedRoute>} />
+    <Route path="/reports" element={<ProtectedRoute><Reports /></ProtectedRoute>} />
+    <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
+    <Route path="/inputs" element={<ProtectedRoute><Inputs /></ProtectedRoute>} />
+    <Route path="*" element={<NotFound />} />
+  </Routes>
+);
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -23,16 +61,9 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/dashboard" element={<Index />} />
-            <Route path="/analytics" element={<Analytics />} />
-            <Route path="/statistics" element={<Statistics />} />
-            <Route path="/reports" element={<Reports />} />
-            <Route path="/settings" element={<Settings />} />
-            <Route path="/inputs" element={<Inputs />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <AuthProvider>
+            <AppRoutes />
+          </AuthProvider>
         </BrowserRouter>
       </TooltipProvider>
     </ThemeProvider>
