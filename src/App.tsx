@@ -11,6 +11,7 @@ import Statistics from "./pages/Statistics";
 import Reports from "./pages/Reports";
 import Settings from "./pages/Settings";
 import InputsDemo from "./pages/InputsDemo";
+import LoginDemo from "./pages/LoginDemo";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -29,6 +30,7 @@ const App = () => (
             <Route path="/reports" element={<Reports />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/inputs" element={<InputsDemo />} />
+            <Route path="/login" element={<LoginDemo />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
