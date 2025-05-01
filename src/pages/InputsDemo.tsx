@@ -10,7 +10,7 @@ import { Switch } from "@/components/ui/switch";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
-import { TextCursor, Textarea as TextareaIcon, Checkbox as CheckboxIcon, Toggle, Sliders } from "lucide-react";
+import { TextCursor, FileText, CheckSquare, ToggleLeft, SlidersHorizontal } from "lucide-react";
 import { toast } from "sonner";
 
 const InputsDemo = () => {
@@ -87,7 +87,7 @@ const InputsDemo = () => {
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <TextareaIcon className="h-5 w-5" />
+                    <FileText className="h-5 w-5" />
                     Textarea
                   </CardTitle>
                 </CardHeader>
@@ -109,7 +109,7 @@ const InputsDemo = () => {
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <CheckboxIcon className="h-5 w-5" />
+                    <CheckSquare className="h-5 w-5" />
                     Toggles
                   </CardTitle>
                 </CardHeader>
@@ -141,7 +141,7 @@ const InputsDemo = () => {
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <Sliders className="h-5 w-5" />
+                    <SlidersHorizontal className="h-5 w-5" />
                     Slider
                   </CardTitle>
                 </CardHeader>
