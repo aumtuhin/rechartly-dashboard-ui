@@ -4,13 +4,17 @@ import { DashboardSidebar } from "@/components/DashboardSidebar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { LogOut } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const Settings = () => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const navigate = useNavigate();
 
   // Only render the switch when the component has mounted to avoid hydration mismatch
   useEffect(() => {
@@ -21,6 +25,11 @@ const Settings = () => {
     const newTheme = checked ? 'dark' : 'light';
     setTheme(newTheme);
     toast(`${newTheme.charAt(0).toUpperCase() + newTheme.slice(1)} mode activated`);
+  };
+
+  const handleLogout = () => {
+    toast.success("Logged out successfully");
+    navigate("/");
   };
 
   if (!mounted) {
@@ -53,6 +62,22 @@ const Settings = () => {
                 />
                 <Label htmlFor="darkMode">Dark mode</Label>
               </div>
+            </CardContent>
+          </Card>
+
+          <Card className="mt-6">
+            <CardHeader>
+              <CardTitle>Account</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Button 
+                variant="destructive" 
+                onClick={handleLogout}
+                className="flex items-center gap-2"
+              >
+                <LogOut size={18} />
+                Logout
+              </Button>
             </CardContent>
           </Card>
         </main>
