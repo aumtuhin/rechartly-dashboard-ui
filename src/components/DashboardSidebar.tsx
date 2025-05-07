@@ -18,7 +18,7 @@ const items = [
   { title: "Statistics", icon: ChartLine, url: "/statistics" },
   { title: "Reports", icon: ChartPie, url: "/reports" },
   { title: "Input Fields", icon: FileInput, url: "/inputs" },
-  { title: "Table Examples", icon: Table, url: "/tables" },
+  { title: "Data Management", icon: Table, url: "/data-management" },
   { title: "Settings", icon: Settings, url: "/settings" },
 ];
 
