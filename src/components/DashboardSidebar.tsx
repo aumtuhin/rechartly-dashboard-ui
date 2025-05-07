@@ -10,14 +10,15 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { Link } from "react-router-dom";
-import { ChartBar, Home, Settings, ChartPie, ChartLine, FileInput } from "lucide-react";
+import { ChartBar, Home, Settings, ChartPie, ChartLine, FileInput, Table } from "lucide-react";
 
 const items = [
-  { title: "Overview", icon: Home, url: "/" },
+  { title: "Overview", icon: Home, url: "/dashboard" },
   { title: "Analytics", icon: ChartBar, url: "/analytics" },
   { title: "Statistics", icon: ChartLine, url: "/statistics" },
   { title: "Reports", icon: ChartPie, url: "/reports" },
   { title: "Input Fields", icon: FileInput, url: "/inputs" },
+  { title: "Table Examples", icon: Table, url: "/tables" },
   { title: "Settings", icon: Settings, url: "/settings" },
 ];
 

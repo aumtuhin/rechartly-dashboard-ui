@@ -12,6 +12,7 @@ import Statistics from "./pages/Statistics";
 import Reports from "./pages/Reports";
 import Settings from "./pages/Settings";
 import Inputs from "./pages/Inputs";
+import TableExamples from "./pages/TableExamples";
 import NotFound from "./pages/NotFound";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 
@@ -50,6 +51,7 @@ const AppRoutes = () => (
     <Route path="/reports" element={<ProtectedRoute><Reports /></ProtectedRoute>} />
     <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
     <Route path="/inputs" element={<ProtectedRoute><Inputs /></ProtectedRoute>} />
+    <Route path="/tables" element={<ProtectedRoute><TableExamples /></ProtectedRoute>} />
     <Route path="*" element={<NotFound />} />
   </Routes>
 );
