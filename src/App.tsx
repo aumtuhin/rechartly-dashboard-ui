@@ -14,6 +14,7 @@ import Settings from "./pages/Settings";
 import Inputs from "./pages/Inputs";
 import DataManagement from "./pages/DataManagement";
 import Profile from "./pages/Profile";
+import KanbanBoard from "./pages/KanbanBoard";
 import NotFound from "./pages/NotFound";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 
@@ -54,6 +55,7 @@ const AppRoutes = () => (
     <Route path="/inputs" element={<ProtectedRoute><Inputs /></ProtectedRoute>} />
     <Route path="/data-management" element={<ProtectedRoute><DataManagement /></ProtectedRoute>} />
     <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+    <Route path="/kanban" element={<ProtectedRoute><KanbanBoard /></ProtectedRoute>} />
     <Route path="*" element={<NotFound />} />
   </Routes>
 );

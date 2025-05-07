@@ -10,7 +10,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { Link } from "react-router-dom";
-import { ChartBar, Home, Settings, ChartPie, ChartLine, FileInput, Table } from "lucide-react";
+import { ChartBar, Home, Settings, ChartPie, ChartLine, FileInput, Table, ListTodo } from "lucide-react";
 
 const items = [
   { title: "Overview", icon: Home, url: "/dashboard" },
@@ -19,6 +19,7 @@ const items = [
   { title: "Reports", icon: ChartPie, url: "/reports" },
   { title: "Input Fields", icon: FileInput, url: "/inputs" },
   { title: "Data Management", icon: Table, url: "/data-management" },
+  { title: "Task Management", icon: ListTodo, url: "/kanban" },
   { title: "Settings", icon: Settings, url: "/settings" },
 ];
 
