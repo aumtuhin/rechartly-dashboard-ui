@@ -15,6 +15,7 @@ import Inputs from "./pages/Inputs";
 import DataManagement from "./pages/DataManagement";
 import Profile from "./pages/Profile";
 import KanbanBoard from "./pages/KanbanBoard";
+import ThemeCustomization from "./pages/ThemeCustomization";
 import NotFound from "./pages/NotFound";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 
@@ -56,6 +57,7 @@ const AppRoutes = () => (
     <Route path="/data-management" element={<ProtectedRoute><DataManagement /></ProtectedRoute>} />
     <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
     <Route path="/kanban" element={<ProtectedRoute><KanbanBoard /></ProtectedRoute>} />
+    <Route path="/theme" element={<ProtectedRoute><ThemeCustomization /></ProtectedRoute>} />
     <Route path="*" element={<NotFound />} />
   </Routes>
 );

@@ -98,4 +98,9 @@
   body {
     @apply bg-background text-foreground;
   }
+  
+  /* Ensure button text is always contrasting with background */
+  .dark button {
+    @apply text-foreground;
+  }
 }
