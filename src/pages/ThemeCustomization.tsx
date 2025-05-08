@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import { Check, Palette, Sun, Moon, ColorPicker } from "lucide-react";
+import { Check, Palette, Sun, Moon, PaintBucket } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
@@ -287,7 +287,7 @@ const ThemeCustomization = () => {
                     onChange={(e) => setCustomCSS(e.target.value)}
                   />
                   <Button className="mt-2" onClick={applyCustomCSS}>
-                    <ColorPicker className="h-4 w-4 mr-2" />
+                    <PaintBucket className="h-4 w-4 mr-2" />
                     Apply Custom CSS
                   </Button>
                 </CardContent>
