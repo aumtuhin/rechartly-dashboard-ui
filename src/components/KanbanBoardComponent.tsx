@@ -2,9 +2,11 @@
 import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Plus, Edit, Trash2 } from "lucide-react";
+import { Plus } from "lucide-react";
 import { KanbanColumn } from "@/components/KanbanColumn";
 import { TaskDialog } from "@/components/TaskDialog";
+import { TaskDetails } from "@/components/TaskDetails";
+import { DeleteConfirmation } from "@/components/DeleteConfirmation";
 import { TaskType, ColumnType } from "@/types/kanban";
 import { useToast } from "@/hooks/use-toast";
 
@@ -14,9 +16,14 @@ export const KanbanBoardComponent = () => {
     const savedTasks = localStorage.getItem("kanban-tasks");
     return savedTasks ? JSON.parse(savedTasks) : defaultTasks;
   });
+  
   const [columns, setColumns] = useState<ColumnType[]>(defaultColumns);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [currentTask, setCurrentTask] = useState<TaskType | null>(null);
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+  const [selectedTask, setSelectedTask] = useState<TaskType | null>(null);
+  const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false);
+  const [taskToDelete, setTaskToDelete] = useState<string | null>(null);
   
   // Save tasks to localStorage whenever they change
   useEffect(() => {
@@ -50,16 +57,29 @@ export const KanbanBoardComponent = () => {
     ));
     setIsDialogOpen(false);
     setCurrentTask(null);
+    // Close details dialog if it was open
+    if (isDetailsOpen) {
+      setIsDetailsOpen(false);
+    }
     toast({
       description: "Task updated successfully",
     });
   };
   
   const handleTaskDelete = (taskId: string) => {
-    setTasks(tasks.filter(task => task.id !== taskId));
-    toast({
-      description: "Task deleted successfully",
-    });
+    setTaskToDelete(taskId);
+    setIsDeleteConfirmOpen(true);
+  };
+
+  const confirmDelete = () => {
+    if (taskToDelete) {
+      setTasks(tasks.filter(task => task.id !== taskToDelete));
+      setTaskToDelete(null);
+      setIsDeleteConfirmOpen(false);
+      toast({
+        description: "Task deleted successfully",
+      });
+    }
   };
   
   const openAddTaskDialog = () => {
@@ -70,8 +90,17 @@ export const KanbanBoardComponent = () => {
   const openEditTaskDialog = (task: TaskType) => {
     setCurrentTask(task);
     setIsDialogOpen(true);
+    // Close details dialog if it was open
+    if (isDetailsOpen) {
+      setIsDetailsOpen(false);
+    }
   };
-  
+
+  const handleTaskClick = (task: TaskType) => {
+    setSelectedTask(task);
+    setIsDetailsOpen(true);
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
@@ -91,6 +120,7 @@ export const KanbanBoardComponent = () => {
             onTaskMove={handleTaskMove}
             onTaskEdit={openEditTaskDialog}
             onTaskDelete={handleTaskDelete}
+            onTaskClick={handleTaskClick}
           />
         ))}
       </div>
@@ -101,6 +131,24 @@ export const KanbanBoardComponent = () => {
         onSave={currentTask ? handleTaskEdit : handleTaskAdd}
         task={currentTask}
         columns={columns}
+      />
+
+      <TaskDetails
+        isOpen={isDetailsOpen}
+        setIsOpen={setIsDetailsOpen}
+        task={selectedTask}
+        onEdit={() => {
+          if (selectedTask) {
+            openEditTaskDialog(selectedTask);
+          }
+        }}
+      />
+
+      <DeleteConfirmation
+        isOpen={isDeleteConfirmOpen}
+        setIsOpen={setIsDeleteConfirmOpen}
+        onConfirm={confirmDelete}
+        title="Are you sure you want to delete this task?"
       />
     </div>
   );
@@ -119,14 +167,16 @@ const defaultTasks: TaskType[] = [
     title: "Research competitors",
     description: "Analyze top 5 competitors in the marketplace",
     status: "todo",
-    priority: "high"
+    priority: "high",
+    assignedTo: "user1"
   },
   {
     id: "2",
     title: "Design new landing page",
     description: "Create mockups for the new homepage design",
     status: "inprogress",
-    priority: "medium"
+    priority: "medium",
+    assignedTo: "user2"
   },
   {
     id: "3",

@@ -20,6 +20,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { TaskType, ColumnType } from "@/types/kanban";
+import { User } from "lucide-react";
 
 interface TaskDialogProps {
   isOpen: boolean;
@@ -29,11 +30,20 @@ interface TaskDialogProps {
   columns: ColumnType[];
 }
 
+// Array of sample users
+const users = [
+  { id: "user1", name: "John Doe" },
+  { id: "user2", name: "Jane Smith" },
+  { id: "user3", name: "Alex Johnson" },
+  { id: "user4", name: "Sam Wilson" }
+];
+
 export const TaskDialog = ({ isOpen, setIsOpen, onSave, task, columns }: TaskDialogProps) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState("todo");
   const [priority, setPriority] = useState("medium");
+  const [assignedTo, setAssignedTo] = useState("");
   const isEditing = Boolean(task);
 
   useEffect(() => {
@@ -42,11 +52,13 @@ export const TaskDialog = ({ isOpen, setIsOpen, onSave, task, columns }: TaskDia
       setDescription(task.description);
       setStatus(task.status);
       setPriority(task.priority);
+      setAssignedTo(task.assignedTo || "");
     } else {
       setTitle("");
       setDescription("");
       setStatus("todo");
       setPriority("medium");
+      setAssignedTo("");
     }
   }, [task, isOpen]);
 
@@ -58,7 +70,8 @@ export const TaskDialog = ({ isOpen, setIsOpen, onSave, task, columns }: TaskDia
       title,
       description,
       status,
-      priority
+      priority,
+      assignedTo: assignedTo || undefined
     };
     
     onSave(taskData);
@@ -130,6 +143,23 @@ export const TaskDialog = ({ isOpen, setIsOpen, onSave, task, columns }: TaskDia
                 </SelectContent>
               </Select>
             </div>
+          </div>
+          
+          <div className="space-y-2">
+            <Label htmlFor="assignedTo">Assigned To</Label>
+            <Select value={assignedTo} onValueChange={setAssignedTo}>
+              <SelectTrigger>
+                <SelectValue placeholder="Assign to user" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="">Unassigned</SelectItem>
+                {users.map(user => (
+                  <SelectItem key={user.id} value={user.id}>
+                    {user.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
           
           <DialogFooter className="pt-4">

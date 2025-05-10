@@ -5,6 +5,7 @@ export interface TaskType {
   description: string;
   status: string;
   priority: string;
+  assignedTo?: string; // Optional field for user assignment
 }
 
 export interface ColumnType {

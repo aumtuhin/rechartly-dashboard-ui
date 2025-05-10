@@ -10,6 +10,7 @@ interface KanbanColumnProps {
   onTaskMove: (taskId: string, columnId: string) => void;
   onTaskEdit: (task: TaskType) => void;
   onTaskDelete: (taskId: string) => void;
+  onTaskClick: (task: TaskType) => void;
 }
 
 export const KanbanColumn = ({ 
@@ -17,7 +18,8 @@ export const KanbanColumn = ({
   tasks, 
   onTaskMove, 
   onTaskEdit, 
-  onTaskDelete 
+  onTaskDelete,
+  onTaskClick
 }: KanbanColumnProps) => {
   const [isOver, setIsOver] = useState(false);
   
@@ -60,6 +62,7 @@ export const KanbanColumn = ({
               task={task}
               onEdit={() => onTaskEdit(task)}
               onDelete={() => onTaskDelete(task.id)}
+              onClick={() => onTaskClick(task)}
             />
           ))}
           {tasks.length === 0 && (
