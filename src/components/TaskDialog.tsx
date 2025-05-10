@@ -43,7 +43,7 @@ export const TaskDialog = ({ isOpen, setIsOpen, onSave, task, columns }: TaskDia
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState("todo");
   const [priority, setPriority] = useState("medium");
-  const [assignedTo, setAssignedTo] = useState("");
+  const [assignedTo, setAssignedTo] = useState("unassigned"); // Changed default to "unassigned" instead of ""
   const isEditing = Boolean(task);
 
   useEffect(() => {
@@ -52,13 +52,13 @@ export const TaskDialog = ({ isOpen, setIsOpen, onSave, task, columns }: TaskDia
       setDescription(task.description);
       setStatus(task.status);
       setPriority(task.priority);
-      setAssignedTo(task.assignedTo || "");
+      setAssignedTo(task.assignedTo || "unassigned"); // Changed to use "unassigned" instead of ""
     } else {
       setTitle("");
       setDescription("");
       setStatus("todo");
       setPriority("medium");
-      setAssignedTo("");
+      setAssignedTo("unassigned"); // Changed to use "unassigned" instead of ""
     }
   }, [task, isOpen]);
 
@@ -71,7 +71,7 @@ export const TaskDialog = ({ isOpen, setIsOpen, onSave, task, columns }: TaskDia
       description,
       status,
       priority,
-      assignedTo: assignedTo || undefined
+      assignedTo: assignedTo === "unassigned" ? undefined : assignedTo // Convert "unassigned" back to undefined
     };
     
     onSave(taskData);
@@ -152,7 +152,7 @@ export const TaskDialog = ({ isOpen, setIsOpen, onSave, task, columns }: TaskDia
                 <SelectValue placeholder="Assign to user" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Unassigned</SelectItem>
+                <SelectItem value="unassigned">Unassigned</SelectItem>
                 {users.map(user => (
                   <SelectItem key={user.id} value={user.id}>
                     {user.name}
