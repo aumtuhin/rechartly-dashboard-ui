@@ -20,6 +20,7 @@ const items = [
   { title: "Input Fields", icon: FileInput, url: "/inputs" },
   { title: "Data Management", icon: Table, url: "/data-management" },
   { title: "Task Management", icon: ListTodo, url: "/kanban" },
+  { title: "Tasks", icon: ListTodo, url: "/tasks" },
   { title: "Sprint Management", icon: Calendar, url: "/sprint-management" },
   { title: "Theme", icon: Palette, url: "/theme" },
   { title: "Settings", icon: Settings, url: "/settings" },

@@ -6,7 +6,7 @@ import { KanbanBoardComponent } from "@/components/KanbanBoardComponent";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Calendar } from "lucide-react";
+import { Calendar, ListTodo } from "lucide-react";
 
 const KanbanBoard = () => {
   const { toast } = useToast();
@@ -23,6 +23,12 @@ const KanbanBoard = () => {
                 <Link to="/sprint-management">
                   <Calendar className="mr-2 h-4 w-4" />
                   Sprint Management
+                </Link>
+              </Button>
+              <Button variant="outline" asChild>
+                <Link to="/tasks">
+                  <ListTodo className="mr-2 h-4 w-4" />
+                  All Tasks
                 </Link>
               </Button>
               <SidebarTrigger />
