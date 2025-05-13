@@ -72,17 +72,26 @@ export const TaskDetails = ({ isOpen, setIsOpen, task, onEdit }: TaskDetailsProp
             </div>
           </div>
           
-          <div className="space-y-1">
-            <h4 className="text-sm font-medium">Assigned To</h4>
-            <div className="flex items-center text-sm text-muted-foreground">
-              {task.assignedTo ? (
-                <>
-                  <User className="h-4 w-4 mr-2" />
-                  <span>{getUserName(task.assignedTo)}</span>
-                </>
-              ) : (
-                <span>Unassigned</span>
-              )}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-1">
+              <h4 className="text-sm font-medium">Assigned To</h4>
+              <div className="flex items-center text-sm text-muted-foreground">
+                {task.assignedTo ? (
+                  <>
+                    <User className="h-4 w-4 mr-2" />
+                    <span>{getUserName(task.assignedTo)}</span>
+                  </>
+                ) : (
+                  <span>Unassigned</span>
+                )}
+              </div>
+            </div>
+            
+            <div className="space-y-1">
+              <h4 className="text-sm font-medium">Story Points</h4>
+              <p className="text-sm text-muted-foreground">
+                {task.storyPoints || "Not estimated"}
+              </p>
             </div>
           </div>
         </div>
