@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { 
   Dialog, 
@@ -91,14 +92,6 @@ export const TaskDialog = ({ isOpen, setIsOpen, onSave, task, columns }: TaskDia
     onSave(taskData);
   };
 
-  // Users data (mock)
-  const users = [
-    { id: "user1", name: "John Doe" },
-    { id: "user2", name: "Jane Smith" },
-    { id: "user3", name: "Alex Johnson" },
-    { id: "user4", name: "Sam Wilson" }
-  ];
-
   // Story points options
   const storyPointsOptions = [1, 2, 3, 5, 8, 13];
 
@@ -184,14 +177,14 @@ export const TaskDialog = ({ isOpen, setIsOpen, onSave, task, columns }: TaskDia
               <div className="grid gap-2">
                 <Label htmlFor="storyPoints">Story Points</Label>
                 <Select 
-                  value={storyPoints?.toString() || ""} 
-                  onValueChange={(value) => setStoryPoints(value ? parseInt(value, 10) : undefined)}
+                  value={storyPoints?.toString() || "none"} 
+                  onValueChange={(value) => setStoryPoints(value !== "none" ? parseInt(value, 10) : undefined)}
                 >
                   <SelectTrigger id="storyPoints">
                     <SelectValue placeholder="Story points" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">None</SelectItem>
+                    <SelectItem value="none">None</SelectItem>
                     {storyPointsOptions.map(points => (
                       <SelectItem key={points} value={points.toString()}>
                         {points}
